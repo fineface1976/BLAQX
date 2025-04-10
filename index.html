@@ -4,102 +4,68 @@
   <base href="/BLAQX/">
   <title>BLAQX Token Platform</title>
   <style>
+    /* ===== Dark Turquoise Blue Theme ===== */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: #e8f4ff; /* Light blue background */
+      background: #116466; /* Dark Turquoise Blue */
     }
+
     .container {
       text-align: center;
-      padding: 2rem;
+      width: 100%;
+      padding: 20px;
     }
+
     h1 {
-      color: #0A2463;
-      margin-bottom: 2rem;
-      font-size: 2.5em;
+      color: white;
+      margin-bottom: 40px;
+      font-size: 2.8em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
+
     .user-auth {
-      background: white;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      width: 350px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      width: 380px;
+      margin: 0 auto;
     }
+
     input {
       display: block;
-      margin: 15px auto;
-      padding: 12px;
-      width: 80%;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      margin: 20px auto;
+      padding: 14px;
+      width: 85%;
+      border: 2px solid #dcdcdc;
+      border-radius: 8px;
+      font-size: 16px;
     }
+
     button {
-      background: #0A2463;
+      background: #0d8a8c; /* Slightly lighter turquoise */
       color: white;
       border: none;
-      padding: 12px 25px;
-      border-radius: 6px;
+      padding: 14px 30px;
+      border-radius: 8px;
       cursor: pointer;
-      width: 90%;
-      font-size: 1em;
+      width: 95%;
+      font-size: 1.1em;
+      transition: background 0.3s;
     }
+
+    button:hover {
+      background: #0a6c6e; /* Darker turquoise on hover */
+    }
+
     a {
-      color: #0A2463;
+      color: #0d8a8c;
       text-decoration: none;
       display: block;
-      margin-top: 15px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>Welcome to BLAQX</h1>
-    
-    <div class="user-auth">
-      <h2>User Login</h2>
-      <form id="userLogin">
-        <input type="email" placeholder="Your Email" required>
-        <input type="password" placeholder="Password" required>
-        <button>Sign In</button>
-      </form>
-      <a href="#" id="registerLink">Create New Account</a>
-    </div>
-  </div>
-
-  <script>
-    // User System (Same as before)
-    let users = JSON.parse(localStorage.getItem('blaqxUsers')) || [];
-
-    document.getElementById("userLogin").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const email = this.querySelector('[type="email"]').value;
-      const password = this.querySelector('[type="password"]').value;
-      
-      const user = users.find(u => u.email === email && u.password === password);
-      if (user) {
-        alert("Welcome back! Redirecting...");
-        window.location.href = "dashboard.html";
-      } else {
-        alert("Invalid credentials");
-      }
-    });
-
-    document.getElementById("registerLink").addEventListener("click", function(e) {
-      e.preventDefault();
-      const email = prompt("Enter your email:");
-      const password = prompt("Create a password:");
-      
-      if (email && password) {
-        users.push({ email, password });
-        localStorage.setItem('blaqxUsers', JSON.stringify(users));
-        alert("Registration successful!");
-      }
-    });
-  </script>
-</body>
-</html>
+      margin-top: 20px;
+      font-weight: bold
