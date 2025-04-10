@@ -4,92 +4,165 @@
   <base href="/BLAQX/">
   <title>BLAQX Token Platform</title>
   <style>
-    /* ===== Visible Dark Turquoise Theme ===== */
+    /* ===== Universal Styles ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Arial', sans-serif;
-      margin: 0;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #116466; /* Dark Turquoise */
-    }
-
-    .container {
-      text-align: center;
-      width: 100%;
+      background: #116466;
       padding: 20px;
     }
 
-    h1 {
-      color: white;
-      margin: 0 0 40px 0;
-      font-size: 2.8em;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .user-auth {
+    /* ===== Login Container ===== */
+    .login-container {
       background: rgba(255, 255, 255, 0.95);
-      padding: 40px;
       border-radius: 20px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-      width: 380px;
-      margin: 0 auto; /* Centers the box */
-    }
-
-    input {
-      display: block;
+      width: 90%;
+      max-width: 450px; /* Smaller than admin's 500px */
+      padding: 30px;
       margin: 20px auto;
-      padding: 14px;
-      width: 85%;
-      border: 2px solid #dcdcdc;
-      border-radius: 8px;
-      font-size: 16px;
     }
 
-    button {
+    h1 {
+      color: #116466;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    /* ===== Password Toggle ===== */
+    .password-wrapper {
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #116466;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+    }
+
+    /* ===== Form Elements ===== */
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button[type="submit"] {
       background: #0d8a8c;
       color: white;
+      width: 100%;
+      padding: 14px;
       border: none;
-      padding: 14px 30px;
       border-radius: 8px;
       cursor: pointer;
-      width: 95%;
-      font-size: 1.1em;
+      font-size: 1.1rem;
       transition: background 0.3s;
     }
 
-    button:hover {
+    button[type="submit"]:hover {
       background: #0a6c6e;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
     }
 
     a {
       color: #0d8a8c;
       text-decoration: none;
-      display: block;
-      margin-top: 20px;
       font-weight: bold;
+    }
+
+    /* ===== Mobile Responsiveness ===== */
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 20px;
+        border-radius: 15px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      input, button[type="submit"] {
+        padding: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Title & Login Box (NOW VISIBLE) -->
-  <div class="container">
-    <h1>Welcome to BLAQX</h1> <!-- Title added back -->
-    
-    <div class="user-auth">
-      <h2>User Login</h2>
-      <form id="userLogin">
-        <input type="email" placeholder="Your Email" required>
-        <input type="password" placeholder="Password" required>
-        <button>Sign In</button>
-      </form>
+  <div class="login-container">
+    <h1>BLAQX User Login</h1>
+    <form id="userLogin">
+      <input type="email" placeholder="Your Email" required>
+      
+      <div class="password-wrapper">
+        <input type="password" placeholder="Password" required id="userPassword">
+        <button type="button" class="password-toggle" onclick="togglePassword('userPassword')">👁️</button>
+      </div>
+
+      <button type="submit">Sign In</button>
+    </form>
+    <div class="register-link">
       <a href="#" id="registerLink">Create New Account</a>
     </div>
   </div>
 
   <script>
-    // User system code (same as before)
+    // Password Toggle Function
+    function togglePassword(fieldId) {
+      const passwordField = document.getElementById(fieldId);
+      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+    }
+
+    // User System (Same as before)
+    let users = JSON.parse(localStorage.getItem('blaqxUsers')) || [];
+
+    document.getElementById("userLogin").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = this.querySelector('[type="email"]').value;
+      const password = this.querySelector('[type="password"]').value;
+      
+      const user = users.find(u => u.email === email && u.password === password);
+      if (user) {
+        alert("Welcome back! Redirecting...");
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Invalid credentials");
+      }
+    });
+
+    document.getElementById("registerLink").addEventListener("click", function(e) {
+      e.preventDefault();
+      const email = prompt("Enter your email:");
+      const password = prompt("Create a password:");
+      
+      if (email && password) {
+        users.push({ email, password });
+        localStorage.setItem('blaqxUsers', JSON.stringify(users));
+        alert("Registration successful!");
+      }
+    });
   </script>
 </body>
 </html>
