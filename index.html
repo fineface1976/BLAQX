@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <base href="/BLAQX/">
   <title>BLAQX Token Platform</title>
+  <!-- YOUR ORIGINAL STYLES -->
   <style>
-    /* ===== YOUR ORIGINAL STYLES - 0 CHANGES ===== */
+    /* ===== Universal Styles ===== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -17,10 +18,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #116466; /* Dark Turquoise */
+      background: #116466;
       padding: 20px;
     }
 
+    /* ===== Login Container ===== */
     .login-container {
       background: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
@@ -38,6 +40,7 @@
       font-size: 2rem;
     }
 
+    /* ===== Password Toggle ===== */
     .password-wrapper {
       position: relative;
       margin: 20px 0;
@@ -55,6 +58,7 @@
       font-size: 1.2rem;
     }
 
+    /* ===== Form Elements ===== */
     input {
       width: 100%;
       padding: 14px;
@@ -90,6 +94,7 @@
       font-weight: bold;
     }
 
+    /* ===== Mobile Responsiveness ===== */
     @media (max-width: 480px) {
       .login-container {
         padding: 20px;
@@ -107,15 +112,14 @@
   </style>
 </head>
 <body>
-  <!-- YOUR ORIGINAL HTML STRUCTURE -->
   <div class="login-container">
     <h1>BLAQX User Login</h1>
     <form id="userLogin">
-      <input type="email" placeholder="Your Email" required>
+      <input type="email" id="loginEmail" placeholder="Your Email" required>
       
       <div class="password-wrapper">
-        <input type="password" placeholder="Password" required id="userPassword">
-        <button type="button" class="password-toggle" onclick="togglePassword('userPassword')">👁️</button>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">👁️</button>
       </div>
 
       <button type="submit">Sign In</button>
@@ -126,37 +130,48 @@
   </div>
 
   <script>
-    // ===== YOUR ORIGINAL LOGIC WITH REDIRECT FIX =====
-    function togglePassword(fieldId) {
-      const passwordField = document.getElementById(fieldId);
-      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+    // Password Toggle
+    function togglePassword(id) {
+      const field = document.getElementById(id);
+      field.type = field.type === 'password' ? 'text' : 'password';
     }
 
+    // User System
     let users = JSON.parse(localStorage.getItem('blaqxUsers')) || [];
 
+    // Login Handler
     document.getElementById("userLogin").addEventListener("submit", function(e) {
       e.preventDefault();
-      const email = this.querySelector('[type="email"]').value;
-      const password = this.querySelector('[type="password"]').value;
-      
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
       const user = users.find(u => u.email === email && u.password === password);
       if (user) {
         localStorage.setItem('blaqxAuth', JSON.stringify(user));
-        window.location.href = "dashboard.html"; // Redirect added
+        window.location.href = "dashboard.html"; // Guaranteed redirect
       } else {
-        alert("Invalid credentials");
+        alert("Invalid credentials. Try again.");
       }
     });
 
+    // Registration Handler
     document.getElementById("registerLink").addEventListener("click", function(e) {
       e.preventDefault();
-      const email = prompt("Enter your email:");
-      const password = prompt("Create a password:");
-      
+      const email = prompt("Enter your email:").trim();
+      const password = prompt("Create a password:").trim();
+
       if (email && password) {
-        users.push({ email, password, balance: 0 });
+        const newUser = {
+          email,
+          password,
+          balance: 0,
+          transactions: [],
+          joined: new Date().toISOString()
+        };
+        users.push(newUser);
         localStorage.setItem('blaqxUsers', JSON.stringify(users));
-        alert("Registration successful!");
+        localStorage.setItem('blaqxAuth', JSON.stringify(newUser)); // Auto-login
+        window.location.href = "dashboard.html"; // Force redirect
       }
     });
   </script>
