@@ -102,3 +102,33 @@
   </script>
 </body>
 </html>
+<style>
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 600px) {
+  .dashboard-panel {
+    width: 95%;
+    padding: 1rem;
+    margin: 10px;
+  }
+
+  .stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  button {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+/* LAPTOP/TABLET VIEW */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .dashboard-panel {
+    width: 80%;
+  }
+}
+</style>
