@@ -1,1 +1,108 @@
- 
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/BLAQX/">
+  <title>BLAQX Wallet</title>
+  <style>
+    /* Mirror login page styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #116466;
+      padding: 20px;
+    }
+
+    .dashboard-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
+      margin: 20px auto;
+    }
+
+    .balance-display {
+      background: #0d8a8c;
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .transaction-history {
+      margin-top: 25px;
+      padding: 15px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 10px;
+    }
+
+    .logout-btn {
+      background: #116466;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="balance-display">
+      <h2>Your BLAQX Balance</h2>
+      <p id="balanceAmount">Loading...</p>
+    </div>
+
+    <div class="transaction-history">
+      <h3>Recent Activity</h3>
+      <ul id="transactionList"></ul>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    // Session Validation
+    const session = JSON.parse(localStorage.getItem('blaqxSession'));
+    
+    if (!session || Date.now() > session.expires) {
+      localStorage.removeItem('blaqxSession');
+      window.location.href = 'index.html';
+    }
+
+    // Load Dashboard Data
+    document.getElementById('balanceAmount').textContent = 
+      `${session.balance.toFixed(2)} BLAQX`;
+
+    const transactionHTML = session.transactions.map(tx => `
+      <li>${new Date(tx.date).toLocaleDateString()} - ${tx.type}: ${tx.amount}BLAQX</li>
+    `).join('');
+
+    document.getElementById('transactionList').innerHTML = 
+      transactionHTML || "<p>No transactions yet</p>";
+
+    // Logout System
+    function logout() {
+      localStorage.removeItem('blaqxSession');
+      window.location.href = 'index.html';
+    }
+
+    // Auto-save every minute
+    setInterval(() => {
+      const currentUser = users.find(u => u.email === session.email);
+      if (currentUser) {
+        currentUser.balance = session.balance;
+        currentUser.transactions = session.transactions;
+        localStorage.setItem('blaqxUsers', JSON.stringify(users));
+      }
+    }, 60000);
+  </script>
+</body>
+</html>
