@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/BLAQX/">
+  <title>BLAQX User Dashboard</title>
+  <style>
+    /* Inherit main styles + dashboard specific */
+    body { background: #116466; color: white; }
+    .dashboard {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    .balance-card {
+      background: rgba(255,255,255,0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+    }
+    .quick-actions { display: flex; gap: 1rem; }
+    /* Full CSS provided in file */
+  </style>
+</head>
+<body>
+  <nav>...</nav>
+  
+  <div class="dashboard">
+    <div class="balance-card">
+      <h2>Your BLAQX Wallet</h2>
+      <p class="balance">0.00 BLAQX ($0.00)</p>
+    </div>
 
+    <div class="quick-actions">
+      <button onclick="buyTokens()">Buy BLAQX</button>
+      <button onclick="sellTokens()">Sell BLAQX</button>
+      <button onclick="sendTokens()">Send</button>
+    </div>
+
+    <div class="referral-section">
+      <h3>Your Referral Link</h3>
+      <input type="text" id="referralLink" readonly>
+      <button onclick="copyReferral()">Copy</button>
+    </div>
+  </div>
+
+  <script>
+    // Full functionality code here
+  </script>
+</body>
+</html>
