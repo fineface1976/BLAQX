@@ -1,11 +1,10 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <base href="/BLAQX/">
   <title>BLAQX Token Platform</title>
-  <!-- YOUR ORIGINAL STYLES -->
   <style>
-    /* ===== Universal Styles ===== */
+    /* ===== YOUR ORIGINAL STYLES ===== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -22,7 +21,6 @@
       padding: 20px;
     }
 
-    /* ===== Login Container ===== */
     .login-container {
       background: rgba(255, 255, 255, 0.95);
       border-radius: 20px;
@@ -40,7 +38,6 @@
       font-size: 2rem;
     }
 
-    /* ===== Password Toggle ===== */
     .password-wrapper {
       position: relative;
       margin: 20px 0;
@@ -58,7 +55,6 @@
       font-size: 1.2rem;
     }
 
-    /* ===== Form Elements ===== */
     input {
       width: 100%;
       padding: 14px;
@@ -94,7 +90,6 @@
       font-weight: bold;
     }
 
-    /* ===== Mobile Responsiveness ===== */
     @media (max-width: 480px) {
       .login-container {
         padding: 20px;
@@ -148,9 +143,9 @@
       const user = users.find(u => u.email === email && u.password === password);
       if (user) {
         localStorage.setItem('blaqxAuth', JSON.stringify(user));
-        window.location.href = "dashboard.html"; // Guaranteed redirect
+        window.location.href = "dashboard.html"; // Redirect
       } else {
-        alert("Invalid credentials. Try again.");
+        alert("Invalid credentials");
       }
     });
 
@@ -165,8 +160,7 @@
           email,
           password,
           balance: 0,
-          transactions: [],
-          joined: new Date().toISOString()
+          transactions: []
         };
         users.push(newUser);
         localStorage.setItem('blaqxUsers', JSON.stringify(users));
