@@ -78,3 +78,40 @@
   </script>
 </body>
 </html>
+
+<!-- Add this after existing styles -->
+<style>
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 480px) {
+  .dashboard-container {
+    width: 95%;
+    padding: 1.5rem;
+    margin: 10px;
+  }
+
+  .balance-card {
+    padding: 1.25rem;
+    margin: 1rem 0;
+  }
+
+  .balance-card h2 {
+    font-size: 1.5rem;
+  }
+
+  #balance {
+    font-size: 1.75rem;
+  }
+
+  .logout-btn {
+    padding: 14px;
+    font-size: 1rem;
+  }
+}
+
+/* TABLET/LAPTOP ADJUSTMENTS */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dashboard-container {
+    max-width: 700px;
+  }
+}
+</style>
