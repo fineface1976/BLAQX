@@ -2,9 +2,15 @@
 <html>
 <head>
   <base href="/BLAQX/">
-  <title>Your Wallet</title>
-  <!-- Mirror login styles -->
+  <title>BLAQX Wallet</title>
   <style>
+    /* MIRRORED LOGIN PAGE STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Arial', sans-serif;
       min-height: 100vh;
@@ -15,30 +21,55 @@
       padding: 20px;
     }
 
-    .dashboard {
-      background: rgba(255,255,255,0.95);
+    .dashboard-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
       width: 90%;
       max-width: 600px;
       padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      margin: 20px auto;
+    }
+
+    /* NEW DASHBOARD ELEMENTS */
+    .balance-card {
+      background: #0d8a8c;
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .logout-btn {
+      background: #116466;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <div class="dashboard">
-    <h2>Welcome Back</h2>
-    <p>Balance: <span id="balance">0.00</span> BLAQX</p>
-    <button onclick="logout()">Logout</button>
+  <div class="dashboard-container">
+    <div class="balance-card">
+      <h2>Your BLAQX Balance</h2>
+      <p id="balance">0.00 BLAQX</p>
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
   </div>
 
   <script>
     // Session Check
     const auth = JSON.parse(localStorage.getItem('blaqxAuth'));
-    if(!auth) window.location.href = 'index.html';
+    if (!auth) window.location.href = 'index.html';
 
     // Load Data
-    document.getElementById('balance').textContent = auth.balance;
+    document.getElementById('balance').textContent = 
+      `${auth.balance.toFixed(2)} BLAQX`;
 
     // Logout
     function logout() {
