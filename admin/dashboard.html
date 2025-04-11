@@ -1,1 +1,79 @@
- 
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/BLAQX/admin/">
+  <title>Admin Dashboard</title>
+  <style>
+    /* MIRRORED USER DASHBOARD STYLES */
+    body {
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #116466;
+      padding: 20px;
+    }
+
+    .dashboard-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 800px;
+      padding: 30px;
+      margin: 20px auto;
+    }
+
+    .stat-card {
+      background: #0d8a8c;
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .logout-btn {
+      background: #116466;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="stat-card">
+      <h2>System Overview</h2>
+      <p>Total Users: <span id="totalUsers">0</span></p>
+      <p>Active Trades: <span id="activeTrades">0</span></p>
+    </div>
+
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    // Session Check
+    if (!localStorage.getItem('blaqxAdminAuth')) {
+      window.location.href = 'login.html';
+    }
+
+    // Load Stats (Mock Data)
+    document.getElementById('totalUsers').textContent = 
+      localStorage.getItem('blaqxUsers') 
+        ? JSON.parse(localStorage.getItem('blaqxUsers')).length 
+        : 0;
+
+    // Logout
+    function logout() {
+      localStorage.removeItem('blaqxAdminAuth');
+      window.location.href = 'login.html';
+    }
+  </script>
+</body>
+</html>
