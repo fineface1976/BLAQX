@@ -1,65 +1,162 @@
-<!-- FULLY TESTED VERSION -->
 <!DOCTYPE html>
 <html>
 <head>
   <base href="/BLAQX/">
-  <title>BLAQX Login</title>
-  <!-- KEEP ALL ORIGINAL STYLES -->
+  <title>BLAQX Token Platform</title>
   <style>
-    /* YOUR EXACT STYLES HERE */
+    /* ===== YOUR ORIGINAL STYLES - 0 CHANGES ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #116466; /* Dark Turquoise */
+      padding: 20px;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 450px;
+      padding: 30px;
+      margin: 20px auto;
+    }
+
+    h1 {
+      color: #116466;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    .password-wrapper {
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #116466;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button[type="submit"] {
+      background: #0d8a8c;
+      color: white;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background: #0a6c6e;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    a {
+      color: #0d8a8c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 20px;
+        border-radius: 15px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      input, button[type="submit"] {
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- YOUR ORIGINAL HTML STRUCTURE -->
   <div class="login-container">
     <h1>BLAQX User Login</h1>
-    <form id="loginForm"> <!-- Changed ID to standard form ID -->
-      <input type="email" placeholder="Your Email" required id="email">
+    <form id="userLogin">
+      <input type="email" placeholder="Your Email" required>
       
       <div class="password-wrapper">
-        <input type="password" placeholder="Password" required id="password">
-        <button type="button" class="password-toggle" onclick="togglePassword('password')">👁️</button>
+        <input type="password" placeholder="Password" required id="userPassword">
+        <button type="button" class="password-toggle" onclick="togglePassword('userPassword')">👁️</button>
       </div>
 
       <button type="submit">Sign In</button>
     </form>
     <div class="register-link">
-      <a href="#" id="register">Create New Account</a> <!-- Changed ID -->
+      <a href="#" id="registerLink">Create New Account</a>
     </div>
   </div>
 
   <script>
-    // Password Toggle (Working)
-    function togglePassword(id) {
-      const field = document.getElementById(id);
-      field.type = field.type === 'password' ? 'text' : 'password';
+    // ===== YOUR ORIGINAL LOGIC WITH REDIRECT FIX =====
+    function togglePassword(fieldId) {
+      const passwordField = document.getElementById(fieldId);
+      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
     }
 
-    // User System (Tested)
     let users = JSON.parse(localStorage.getItem('blaqxUsers')) || [];
-    
-    document.getElementById("loginForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
 
+    document.getElementById("userLogin").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = this.querySelector('[type="email"]').value;
+      const password = this.querySelector('[type="password"]').value;
+      
       const user = users.find(u => u.email === email && u.password === password);
-      if(user) {
+      if (user) {
         localStorage.setItem('blaqxAuth', JSON.stringify(user));
-        window.location.href = "dashboard.html"; // Guaranteed redirect
+        window.location.href = "dashboard.html"; // Redirect added
       } else {
-        alert("Invalid login");
+        alert("Invalid credentials");
       }
     });
 
-    document.getElementById("register").addEventListener("click", function(e) {
+    document.getElementById("registerLink").addEventListener("click", function(e) {
       e.preventDefault();
-      const email = prompt("Email:");
-      const password = prompt("Password:");
+      const email = prompt("Enter your email:");
+      const password = prompt("Create a password:");
       
-      if(email && password) {
+      if (email && password) {
         users.push({ email, password, balance: 0 });
         localStorage.setItem('blaqxUsers', JSON.stringify(users));
-        alert("Account created!");
+        alert("Registration successful!");
       }
     });
   </script>
