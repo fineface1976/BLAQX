@@ -4,47 +4,50 @@
   <base href="/BLAQX/">
   <title>BLAQX User Dashboard</title>
   <style>
-    /* Inherit main styles + dashboard specific */
-    body { background: #116466; color: white; }
-    .dashboard {
-      max-width: 1200px;
-      margin: 20px auto;
+    /* Critical CSS to Prevent Layout Break */
+    body { 
+      margin: 0;
       padding: 20px;
+      background: #116466;
+      color: white;
+      font-family: Arial;
     }
     .balance-card {
-      background: rgba(255,255,255,0.1);
+      background: rgba(0,0,0,0.3);
       padding: 2rem;
       border-radius: 15px;
-      margin-bottom: 2rem;
     }
-    .quick-actions { display: flex; gap: 1rem; }
-    /* Full CSS provided in file */
   </style>
 </head>
 <body>
-  <nav>...</nav>
-  
+  <!-- Mandatory Auth Check -->
+  <script>
+    if (!localStorage.getItem('blaqxAuth')) {
+      window.location.href = 'login.html';
+    }
+  </script>
+
+  <nav>
+    <h1>BLAQX Wallet</h1>
+    <button onclick="logout()">Logout</button>
+  </nav>
+
   <div class="dashboard">
+    <!-- Core Elements -->
     <div class="balance-card">
-      <h2>Your BLAQX Wallet</h2>
-      <p class="balance">0.00 BLAQX ($0.00)</p>
-    </div>
-
-    <div class="quick-actions">
-      <button onclick="buyTokens()">Buy BLAQX</button>
-      <button onclick="sellTokens()">Sell BLAQX</button>
-      <button onclick="sendTokens()">Send</button>
-    </div>
-
-    <div class="referral-section">
-      <h3>Your Referral Link</h3>
-      <input type="text" id="referralLink" readonly>
-      <button onclick="copyReferral()">Copy</button>
+      <h2>Balance: <span id="balance">0.00</span> BLAQX</h2>
     </div>
   </div>
 
   <script>
-    // Full functionality code here
+    // Essential Functionality
+    function logout() {
+      localStorage.removeItem('blaqxAuth');
+      window.location.href = 'index.html';
+    }
+
+    // Debug Console
+    console.log('Dashboard loaded successfully');
   </script>
 </body>
 </html>
