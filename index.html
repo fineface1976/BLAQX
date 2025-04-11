@@ -171,3 +171,37 @@
   </script>
 </body>
 </html>
+
+<!-- Add this at the end of existing styles -->
+<style>
+/* MOBILE FIRST APPROACH */
+@media (max-width: 480px) {
+  .login-container {
+    width: 95%;
+    padding: 1.5rem;
+    margin: 10px;
+  }
+
+  input, button[type="submit"] {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .password-toggle {
+    right: 8px;
+    font-size: 1rem;
+  }
+}
+
+/* TABLET OPTIMIZATION */
+@media (min-width: 481px) and (max-width: 768px) {
+  .login-container {
+    max-width: 380px;
+  }
+}
+</style>
