@@ -1,1 +1,64 @@
- 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BLAQX User Portal</title>
+  <style>
+    /* Unified styling */
+    :root { --primary: #116466; --text: white; }
+    body { background: var(--primary); color: var(--text); }
+    .auth-box { max-width: 400px; margin: 2rem auto; padding: 2rem; }
+  </style>
+</head>
+<body>
+
+<!-- Login Form -->
+<div id="loginSection" class="auth-box">
+  <h2>User Login</h2>
+  <input type="email" id="userEmail" placeholder="Email">
+  <input type="password" id="userPassword" placeholder="Password">
+  <button onclick="handleUserLogin()">Login</button>
+</div>
+
+<!-- Dashboard (Hidden until auth) -->
+<div id="dashboardSection" style="display: none;">
+  <h1>Your BLAQX Wallet</h1>
+  <p>Balance: <span id="userBalance">0.00</span> BLAQX</p>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+// Unified User System
+const USER_KEY = 'blaqxUserAuth';
+
+// 1. Auto-check existing session
+if(localStorage.getItem(USER_KEY)) {
+  showDashboard();
+}
+
+// 2. Login Handler
+function handleUserLogin() {
+  const email = document.getElementById('userEmail').value;
+  const password = document.getElementById('userPassword').value;
+  
+  /* Replace with your actual auth check */
+  if(email && password) { 
+    localStorage.setItem(USER_KEY, Date.now());
+    showDashboard();
+  }
+}
+
+// 3. Dashboard Display
+function showDashboard() {
+  document.getElementById('loginSection').style.display = 'none';
+  document.getElementById('dashboardSection').style.display = 'block';
+  // Load user data here
+}
+
+// 4. Logout
+function logout() {
+  localStorage.removeItem(USER_KEY);
+  window.location.reload();
+}
+</script>
+</body>
+</html>
