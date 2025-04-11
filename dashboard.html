@@ -1,16 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <base href="/BLAQX/">
   <title>BLAQX Wallet</title>
+  <!-- Mirror Login Page Styles -->
   <style>
-    /* MIRRORED LOGIN PAGE STYLES */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
+    /* YOUR ORIGINAL STYLES */
     body {
       font-family: 'Arial', sans-serif;
       min-height: 100vh;
@@ -31,7 +26,6 @@
       margin: 20px auto;
     }
 
-    /* NEW DASHBOARD ELEMENTS */
     .balance-card {
       background: #0d8a8c;
       color: white;
@@ -71,7 +65,7 @@
     document.getElementById('balance').textContent = 
       `${auth.balance.toFixed(2)} BLAQX`;
 
-    // Logout
+    // Logout System
     function logout() {
       localStorage.removeItem('blaqxAuth');
       window.location.href = 'index.html';
