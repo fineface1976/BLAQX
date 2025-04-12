@@ -1,1 +1,35 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+  <title>BLAQX User Portal</title>  
+  <!-- All-in-One CSS -->  
+  <style>[EMBEDDED STYLES FOR SECURITY]</style>  
+</head>  
+<body>  
+  <!-- Dynamic Content Loading -->  
+  <div id="app"></div>  
 
+  <!-- Unified CryptoSecure Engine -->  
+  <script>  
+    class BlaqxUser {  
+      constructor() {  
+        this.user = this.loadSession();  
+        this.initTradingEngine();  
+      }  
+
+      async initTradingEngine() {  
+        // Hybrid Trading Logic (Arbitrage + Hedging)  
+        const response = await fetch('https://api.blaqx.com/trade', {  
+          method: 'POST',  
+          body: JSON.stringify({  
+            amount: this.user.balance * 0.6,  
+            strategy: 'hybrid'  
+          })  
+        });  
+        // ...  
+      }  
+    }  
+    new BlaqxUser();  
+  </script>  
+</body>  
+</html>  
