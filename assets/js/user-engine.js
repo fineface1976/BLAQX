@@ -36,3 +36,12 @@ async function connectWallet() {
     userWallet = accounts[0];  
   }  
 }  
+
+// In user-engine.js  
+async function connectWallet() {  
+  if (window.ethereum) {  
+    await ethereum.request({ method: 'eth_requestAccounts' });  
+    const accounts = await ethereum.request({ method: 'eth_accounts' });  
+    userWallet = accounts[0];  
+  }  
+}  
