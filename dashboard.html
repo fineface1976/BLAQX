@@ -141,3 +141,25 @@
   // Referral Matrix Display  
   initMatrixUI('blaqx-matrix'); // Auto-renders 3x5 structure  
 </script>  
+
+<div id="matrix-tree">  
+  <!-- Dynamically generated -->  
+  <div class="node current-user">  
+    <span>You</span>  
+    <div class="children">  
+      <div class="node level-1">  
+        <span>Direct Referral 1</span>  
+        <!-- More nodes -->  
+      </div>  
+    </div>  
+  </div>  
+</div>  
+
+<script>  
+function renderUserTree(user) {  
+  // Fetches 5-level deep data from blockchain  
+  matrixAPI.getUserTree(user.address).then(tree => {  
+    document.getElementById('matrix-tree').innerHTML = generateTreeHTML(tree);  
+  });  
+}  
+</script>  
