@@ -132,3 +132,17 @@
   }
 }
 </style>
+
+<!-- Add before </body> -->  
+<script src="../assets/js/admin-engine.js"></script>  
+<script>  
+  // Liquidity Management  
+  monitorLiquidityPool('USDT', 10000, () => {  
+    autoListOnPancakeSwap();  
+  });  
+
+  // Tokenomics Controls  
+  document.getElementById('adjustSupply').addEventListener('click', () => {  
+    BLAQXToken.adjustSupply('burn', 1000000);  
+  });  
+</script>  
