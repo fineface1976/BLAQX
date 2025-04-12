@@ -163,3 +163,27 @@ function renderUserTree(user) {
   });  
 }  
 </script>  
+
+<!-- Add to dashboard.html -->  
+<button onclick="buyWithFlutterwave()">Buy Tokens</button>  
+
+<script src="https://checkout.flutterwave.com/v3.js"></script>  
+<script>  
+function buyWithFlutterwave() {  
+  FlutterwaveCheckout({  
+    public_key: 'FLWPUBK-YOUR-KEY-HERE',  
+    tx_ref: 'BLAQX-' + Date.now(),  
+    amount: 50, // USD  
+    currency: 'USD',  
+    payment_options: 'card,ussd',  
+    customer: {  
+      email: 'user@example.com',  
+    },  
+    callback: (response) => {  
+      if (response.status === 'successful') {  
+        creditTokens(response.amount / getCurrentPrice());  
+      }  
+    }  
+  });  
+}  
+</script>  
