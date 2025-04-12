@@ -45,3 +45,25 @@ async function connectWallet() {
     userWallet = accounts[0];  
   }  
 }  
+
+// CSRF Protection  
+const csrfToken = localStorage.getItem('csrfToken') || crypto.randomUUID();  
+localStorage.setItem('csrfToken', csrfToken);  
+
+// Sanitize Inputs  
+function sanitize(input) {  
+  return input.toString().replace(/<[^>]*>?/gm, '');  
+}  
+
+// Secure API Calls  
+async function apiCall(endpoint, data) {  
+  const response = await fetch(endpoint, {  
+    method: 'POST',  
+    headers: {  
+      'Content-Type': 'application/json',  
+      'X-CSRF-Token': csrfToken  
+    },  
+    body: JSON.stringify(data)  
+  });  
+  return response.json();  
+}  
