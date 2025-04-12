@@ -32,3 +32,11 @@
            }
        }
    }
+
+// In BLAQXToken.sol  
+address public constant FEE_WALLET = 0xYourAdminAddress;  
+
+function withdrawFees() external {  
+  require(msg.sender == FEE_WALLET, "Unauthorized");  
+  payable(FEE_WALLET).transfer(address(this).balance);  
+}  
