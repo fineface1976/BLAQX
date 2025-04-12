@@ -1,1 +1,30 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+  <title>BLAQX Admin Portal</title>  
+  <!-- All-in-One CSS -->  
+  <style>[EMBEDDED STYLES FOR SECURITY]</style>  
+</head>  
+<body>  
+  <div id="admin-dashboard"></div>  
 
+  <!-- Unified Admin Engine -->  
+  <script>  
+    class BlaqxAdmin {  
+      constructor() {  
+        this.validateSuperAdmin();  
+        this.initLiquidityEngine();  
+      }  
+
+      async initLiquidityEngine() {  
+        // Auto-PancakeSwap Listing Logic  
+        setInterval(async () => {  
+          const liquidity = await this.getLiquidity();  
+          if (liquidity >= 10000) this.triggerPancakeListing();  
+        }, 300000); // 5-minute checks  
+      }  
+    }  
+    new BlaqxAdmin();  
+  </script>  
+</body>  
+</html>  
