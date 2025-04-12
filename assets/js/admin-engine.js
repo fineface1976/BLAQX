@@ -26,3 +26,35 @@ class AdminMatrix {
     });  
   }  
 }  
+
+// Add to admin-engine.js  
+class AdminMatrix {  
+  constructor() {  
+    this.loadFullTree();  
+  }  
+
+  async loadFullTree() {  
+    const response = await fetch('/api/admin/matrix');  
+    this.fullTree = await response.json();  
+    this.render();  
+  }  
+
+  render() {  
+    const container = document.getElementById('admin-matrix');  
+    container.innerHTML = this.generateAdminHTML(this.fullTree);  
+  }  
+
+  generateAdminHTML(node) {  
+    return `  
+      <div class="admin-node">  
+        <span>${node.address} (Level ${node.level})</span>  
+        <div class="children">  
+          ${node.children.map(child => this.generateAdminHTML(child)).join('')}  
+        </div>  
+      </div>  
+    `;  
+  }  
+}  
+
+// Initialize in admin dashboard  
+new AdminMatrix();  
