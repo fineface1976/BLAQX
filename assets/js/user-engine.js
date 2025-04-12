@@ -67,3 +67,37 @@ async function apiCall(endpoint, data) {
   });  
   return response.json();  
 }  
+
+// Add to user-engine.js  
+class MatrixTree {  
+  constructor(userAddress) {  
+    this.userAddress = userAddress;  
+    this.init();  
+  }  
+
+  async init() {  
+    const response = await fetch(`/api/matrix?address=${this.userAddress}`);  
+    this.treeData = await response.json();  
+    this.render();  
+  }  
+
+  render() {  
+    const container = document.getElementById('matrix-container');  
+    container.innerHTML = this.generateHTML(this.treeData);  
+  }  
+
+  generateHTML(node) {  
+    return `  
+      <div class="node">  
+        <span>${node.address}</span>  
+        ${node.children.map(child => this.generateHTML(child)).join('')}  
+      </div>  
+    `;  
+  }  
+}  
+
+// Initialize when dashboard loads  
+window.addEventListener('load', () => {  
+  const user = JSON.parse(localStorage.getItem('blaqxUser'));  
+  new MatrixTree(user.address);  
+});  
