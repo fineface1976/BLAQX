@@ -13,3 +13,16 @@
        }, 3600000); // Checks hourly
      }
    }
+
+class AdminMatrix {  
+  constructor() {  
+    this.loadEntireTree();  
+  }  
+
+  loadEntireTree() {  
+    // Fetches all users from contract  
+    BLAQXContract.getAllUsers().then(users => {  
+      this.renderFullTree(users);  
+    });  
+  }  
+}  
