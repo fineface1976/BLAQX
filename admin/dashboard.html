@@ -45,6 +45,16 @@
   </style>
   <script src="../assets/js/admin-engine.js"></script>
 </head>
+
+  <script>
+     // Validate CSRF on every action
+     document.addEventListener('DOMContentLoaded', () => {
+       const storedToken = localStorage.getItem('csrfToken');
+       if (!storedToken || storedToken !== '<?php echo $csrfToken; ?>') {
+         window.location.href = '/admin';
+       }
+     });
+   </script>
 <body>
   <div class="dashboard-panel">
     <h2>Admin Dashboard</h2>
