@@ -115,3 +115,28 @@
   }
 }
 </style>
+
+<!-- Add before </body> -->  
+<script src="assets/js/user-engine.js"></script>  
+<script>  
+  // ICO Participation  
+  const icoPrice = getCurrentIcoPrice(); // From smart contract  
+  document.getElementById('icoPrice').innerText = `$${icoPrice}`;  
+
+  // Flutterwave Integration  
+  function buyWithFlutterwave(amount) {  
+    FlutterwaveCheckout({  
+      public_key: 'FLWPUBK-XXXXXXXXXXXXXXXXX',  
+      amount: amount * icoPrice,  
+      currency: 'USD',  
+      callback: (response) => {  
+        if(response.status === 'successful') {  
+          creditTokens(amount, response.referralCode);  
+        }  
+      }  
+    });  
+  }  
+
+  // Referral Matrix Display  
+  initMatrixUI('blaqx-matrix'); // Auto-renders 3x5 structure  
+</script>  
