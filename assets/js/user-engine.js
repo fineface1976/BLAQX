@@ -1,3 +1,12 @@
+// CSRF Protection
+   const csrfToken = localStorage.getItem('csrfToken') || crypto.randomUUID();
+   localStorage.setItem('csrfToken', csrfToken);
+
+   // Input Sanitization
+   function sanitize(input) {
+     return input.toString().replace(/<[^>]*>?/gm, '');
+   }
+
 // User Trading Engine
    class UserEngine {
      constructor() {
